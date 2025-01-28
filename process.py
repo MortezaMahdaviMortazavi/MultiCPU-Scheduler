@@ -1,5 +1,7 @@
+import random
 from dataclasses import dataclass
 from typing import Optional
+
 
 @dataclass
 class Process:
@@ -20,27 +22,35 @@ class Process:
         return (f"Process(id={self.id}, arrivalTime={self.arrivalTime}, "
                 f"executionTime={self.executionTime}, startingDeadline={self.startingDeadline}, "
                 f"endingDeadline={self.endingDeadline}, value={self.value})")
-    
 
 
 
-# Create a process
-process = Process(
-    id=1,
-    arrivalTime=0,
-    executionTime=5,
-    startingDeadline=10,
-    endingDeadline=15,
-    value=100
-)
+class ProcessGenerator:
+    def __init__(self, max_count: Optional[int] = None):
+        self.process_count = 0
+        self.max_count = max_count if max_count is not None else 100
+        self.random = random.Random()
 
-# Check if the process is expired at a given time
-current_time = 12
-print(process.is_expired(current_time))  # Output: False
+    def generate_process(self) -> Process:
+        arrival_time = self.process_count  # Sequential arrival time for simplicity
+        execution_time = self.random.randint(1, 10)
+        starting_deadline = arrival_time + self.random.randint(1, 5)
+        ending_deadline = starting_deadline + execution_time + self.random.randint(1, 5)
+        value = self.random.randint(1, 100)
+        
+        process = Process(
+            id=self.process_count,
+            arrival_time=arrival_time,
+            execution_time=execution_time,
+            starting_deadline=starting_deadline,
+            ending_deadline=ending_deadline,
+            value=value
+        )
+        
+        self.process_count += 1
+        return process
 
-# Get remaining time until the ending deadline
-print(process.get_remaining_time(current_time))  # Output: 3
-
-# Print the process details
-print(process)
-# Output: Process(id=1, arrivalTime=0, executionTime=5, startingDeadline=10, endingDeadline=15, value=100)
+    def run(self):
+        while self.process_count < self.max_count:
+            process = self.generate_process()
+            yield process
