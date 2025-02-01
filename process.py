@@ -8,57 +8,70 @@ from queue import Queue
 @dataclass
 class Process:
     id: int
-    arrival_time: int
-    execution_time: int
-    starting_deadline: int
-    ending_deadline: int
+    arrival_time: float
+    execution_time: float
+    starting_deadline: float
+    ending_deadline: float
     value: int
+    missed_deadline: bool = False
 
-    def get_remaining_time(self, current_time: int) -> int:
-        return self.ending_deadline - current_time
+    def is_expired(self, current_time: float) -> bool:
+        return current_time > self.starting_deadline
 
-    def is_expired(self, current_time: int) -> bool:
-        return current_time > self.starting_deadline or current_time > self.ending_deadline
+    def can_finish(self, current_time: float) -> bool:
+        return current_time + self.execution_time <= self.ending_deadline
 
-    def __str__(self) -> str:
-        return (f"Process(id={self.id}, arrival_time={self.arrival_time}, "
-                f"execution_time={self.execution_time}, starting_deadline={self.starting_deadline}, "
-                f"ending_deadline={self.ending_deadline}, value={self.value})")
+    def __lt__(self, other):
+        # Composite priority: Value > Deadline > Execution Time
+        if self.value != other.value:
+            return self.value > other.value
+        if self.starting_deadline != other.starting_deadline:
+            return self.starting_deadline < other.starting_deadline
+        return self.execution_time < other.execution_time
 
+class ScoreTracker:
+    def __init__(self):
+        self.total_score = 0
+        self.missed_processes = 0
+        self.lock = threading.Lock()
+    
+    def add_score(self, value: int):
+        with self.lock:
+            self.total_score += value
+    
+    def add_missed(self):
+        with self.lock:
+            self.missed_processes += 1
 
-class ProcessGenerator:
-    def __init__(self, max_count: Optional[int] = None):
+class ProcessGenerator(threading.Thread):
+    def __init__(self, output_queue: Queue, max_processes=100):
+        super().__init__()
+        self.output_queue = output_queue
         self.process_count = 0
-        self.max_count = max_count if max_count is not None else 100
-        self.random = random.Random()
-        self.processes_queue = Queue()  # Thread-safe queue
+        self.max_processes = max_processes
+        self._stop_event = threading.Event()
+        self.process_list = []  # Store generated processes
 
     def generate_process(self) -> Process:
-        arrival_time = int(time.time())  # Use current timestamp for real-time arrival
-        execution_time = self.random.randint(1, 10)
-        starting_deadline = arrival_time + self.random.randint(1, 5)
-        ending_deadline = starting_deadline + execution_time + self.random.randint(1, 5)
-        value = self.random.randint(1, 100)
-        
-        process = Process(
+        current_time = time.time()
+        return Process(
             id=self.process_count,
-            arrival_time=arrival_time,
-            execution_time=execution_time,
-            starting_deadline=starting_deadline,
-            ending_deadline=ending_deadline,
-            value=value
+            arrival_time=current_time,
+            execution_time=random.uniform(0.5,2.0),  # Increased max execution time
+            starting_deadline=current_time + random.uniform(0.5, 2.0),  # Tighter deadlines
+            ending_deadline=current_time + random.uniform(1.7, 2.5),
+            value=random.randint(1, 100)
         )
-        
-        self.process_count += 1
-        return process
 
     def run(self):
-        while self.process_count < self.max_count:
+        while not self._stop_event.is_set() and self.process_count < self.max_processes:
             process = self.generate_process()
-            self.processes_queue.put(process)  # Add process to the thread-safe queue
-            print(f"Generated: {process}")
-            time.sleep(self.random.uniform(0.5, 2.0))  # Random delay between process generation
+            self.output_queue.put(process)
+            self.process_count += 1
+            self.process_list.append(process)
+            time.sleep(random.uniform(0.1, 0.3))  # More varied generation intervals
+        
+        self.output_queue.put(None)
 
-
-
-# Reinfrocement learning base scheduling
+    def stop(self):
+        self._stop_event.set()
