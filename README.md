@@ -13,8 +13,6 @@ A simulation of a multi-CPU scheduling system that dynamically generates process
 - [Modules & Files](#modules--files)
 - [How It Works](#how-it-works)
 - [Usage](#usage)
-- [Future Enhancements](#future-enhancements)
-- [License](#license)
 
 ---
 
