@@ -1,6 +1,5 @@
 # MultiCPU-Scheduler
 
-![Scheduler Banner](https://via.placeholder.com/1200x300?text=Multi-CPU+Scheduler)
 
 A simulation of a multi-CPU scheduling system that dynamically generates processes and schedules them on multiple CPUs while managing deadlines, execution times, and scoring. This project demonstrates concurrent programming in Python using threads, mutex locks, and priority queues.
 
@@ -72,8 +71,6 @@ The system is organized into three main components:
 
 3. **CPU Threads:**  
    Multiple CPU threads act as consumers. They continuously fetch processes from the scheduler’s ready queue and simulate their execution. They enforce deadline constraints and update the score tracker based on process success or failure.
-
-![System Architecture Diagram](https://via.placeholder.com/800x400?text=System+Architecture)
 
 ---
 
