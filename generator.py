@@ -29,7 +29,7 @@ class ProcessGenerator(threading.Thread):
 
     def generate_process(self) -> Process:
         current_time = time.time()
-        return ProcessHybrid(
+        return Process(
             id=self.process_count,
             arrival_time=current_time,
             execution_time=random.uniform(0.5,2.0),  # Increased max execution time

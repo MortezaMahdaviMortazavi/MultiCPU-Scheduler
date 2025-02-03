@@ -2,7 +2,7 @@ import threading
 import time
 from queue import Queue
 from typing import Optional
-from process import Process
+from process import Process, ProcessLearnable
 
 
 class CPU(threading.Thread):

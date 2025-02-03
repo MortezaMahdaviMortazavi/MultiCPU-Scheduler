@@ -2,7 +2,7 @@ import random
 import time
 import threading
 from dataclasses import dataclass
-from typing import Optional
+from typing import ClassVar, Optional
 from queue import Queue
 
 @dataclass
@@ -71,6 +71,3 @@ class ProcessHybrid(Process):
         score_other = weight_base * base_other + weight_urgency * urgency_other
 
         return score_self < score_other
-
-
-

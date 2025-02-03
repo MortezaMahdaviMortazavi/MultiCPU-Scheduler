@@ -80,17 +80,3 @@ class Scheduler(threading.Thread):
 
     def stop(self):
         self._stop_event.set()
-
-
-
-"""
-=== Final Results ===
-Total Score: 532
-Missed Processes: 35
-System shutdown complete
-
-
-
-
-
-"""
