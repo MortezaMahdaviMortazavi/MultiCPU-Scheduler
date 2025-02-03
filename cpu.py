@@ -35,7 +35,7 @@ class CPU(threading.Thread):
             time.sleep(process.execution_time)
             
             if time.time() > process.ending_deadline:
-                print("Missed ending deadline",end="---")
+                print("Missed ending deadline",end="------------")
                 raise RuntimeError("Missed ending deadline")
                 
             self.score_tracker.add_score(process.value)

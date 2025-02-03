@@ -1,0 +1,10 @@
+Max Ready Size: 5, Missed Processes: 6, Hit Rate: 94.0%, Gain Value: 88.0
+Max Ready Size: 10, Missed Processes: 5, Hit Rate: 95.0%, Gain Value: 90.0
+Max Ready Size: 15, Missed Processes: 5, Hit Rate: 95.0%, Gain Value: 90.0
+Max Ready Size: 20, Missed Processes: 7, Hit Rate: 93.0%, Gain Value: 86.0
+Max Ready Size: 25, Missed Processes: 0, Hit Rate: 100.0%, Gain Value: 100.0
+Max Ready Size: 30, Missed Processes: 7, Hit Rate: 93.0%, Gain Value: 86.0
+Max Ready Size: 35, Missed Processes: 5, Hit Rate: 95.0%, Gain Value: 90.0
+Max Ready Size: 40, Missed Processes: 4, Hit Rate: 96.0%, Gain Value: 92.0
+Max Ready Size: 45, Missed Processes: 6, Hit Rate: 94.0%, Gain Value: 88.0
+Max Ready Size: 50, Missed Processes: 2, Hit Rate: 98.0%, Gain Value: 96.0

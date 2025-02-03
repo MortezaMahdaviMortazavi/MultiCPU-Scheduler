@@ -1,0 +1,7 @@
+Missed Processes:
+Process ID: 5, Details: ProcessHybrid(id=5, arrival_time=1738563348.0149894, execution_time=1.16702086673603, starting_deadline=1738563348.7207336, ending_deadline=1738563350.3852265, value=87, missed_deadline=True)
+Process ID: 10, Details: ProcessHybrid(id=10, arrival_time=1738563349.5860205, execution_time=0.8897834705065661, starting_deadline=1738563350.6083105, ending_deadline=1738563352.0274315, value=52, missed_deadline=True)
+Process ID: 14, Details: ProcessHybrid(id=14, arrival_time=1738563350.5365942, execution_time=1.2324417838700248, starting_deadline=1738563352.3193886, ending_deadline=1738563352.6553676, value=37, missed_deadline=True)
+Process ID: 15, Details: ProcessHybrid(id=15, arrival_time=1738563350.9261756, execution_time=1.390760212994977, starting_deadline=1738563351.4373722, ending_deadline=1738563352.7254996, value=76, missed_deadline=True)
+Process ID: 29, Details: ProcessHybrid(id=29, arrival_time=1738563355.080702, execution_time=1.801202821864675, starting_deadline=1738563356.420909, ending_deadline=1738563357.0516517, value=46, missed_deadline=True)
+Process ID: 45, Details: ProcessHybrid(id=45, arrival_time=1738563360.2973833, execution_time=1.8188163483352098, starting_deadline=1738563361.7537854, ending_deadline=1738563362.2171993, value=90, missed_deadline=True)
